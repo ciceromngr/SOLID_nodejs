@@ -7,9 +7,9 @@ class CreateUserService {
         private iUserRepository: IUsersRepository
     ){}
 
-    execute({ name, username, password }: ICreateUserDTO): void {
+    async execute({ name, username, password }: ICreateUserDTO): Promise<void> {
 
-        this.iUserRepository.created({ name, username, password })
+        await this.iUserRepository.created({ name, username, password })
 
     }
 

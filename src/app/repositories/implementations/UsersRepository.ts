@@ -4,14 +4,19 @@ import { IUsersRepository, ICreateSpecificationDTO } from "../IUsersRepository";
 
 @EntityRepository(Users)
 class UsersRepository extends Repository<Users> implements IUsersRepository {
-
-    created({ name, username, password }: ICreateSpecificationDTO): void {
+    
+    async created({ name, username, password }: ICreateSpecificationDTO): Promise<void> {
         
         const user = this.create({
             name, username, password
         })
-
-        this.save(user)
+        
+        await this.save(user)
+    }
+    
+    async listUsers(): Promise<any> {
+        const users = await this.find()
+        return users
     }
 
 }
