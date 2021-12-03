@@ -1,21 +1,26 @@
-import { EntityRepository, Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { Users } from "../../database/model/Users";
 import { IUsersRepository, ICreateSpecificationDTO } from "../IUsersRepository";
 
-@EntityRepository(Users)
-class UsersRepository extends Repository<Users> implements IUsersRepository {
-    
+class UsersRepository implements IUsersRepository {
+
+    private repository: Repository<Users>
+
+    constructor() {
+        this.repository = getRepository(Users)
+    }
+
     async created({ name, username, password }: ICreateSpecificationDTO): Promise<void> {
-        
-        const user = this.create({
+
+        const user = this.repository.create({
             name, username, password
         })
-        
-        await this.save(user)
+
+        await this.repository.save(user)
     }
-    
+
     async listUsers(): Promise<any> {
-        const users = await this.find()
+        const users = await this.repository.find()
         return users
     }
 

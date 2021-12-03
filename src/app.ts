@@ -1,11 +1,11 @@
 import express, { Express } from 'express'
-import { routes } from './router'
-
+import { createUsersRouter } from './createUser.routes'
+import { listUsersRouter } from './listUsers.routes'
 
 class App {
 
     public app: Express
-
+    
     constructor() {
         this.app = express()
         this.app.use(express.json())
@@ -13,9 +13,9 @@ class App {
     }
 
     router() {
-        this.app.use(routes)
+        this.app.use("/users", createUsersRouter)
+        this.app.use("/users", listUsersRouter)
     }
-
 }
 
 export default new App().app

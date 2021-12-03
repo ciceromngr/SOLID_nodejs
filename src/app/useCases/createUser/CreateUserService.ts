@@ -1,6 +1,7 @@
 import ICreateUserDTO from "../../DTO/ICreateUserDTO";
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import bcrypt from 'bcrypt'
+import { UsersRepository } from "../../repositories/implementations/UsersRepository";
 
 class CreateUserService {
 
